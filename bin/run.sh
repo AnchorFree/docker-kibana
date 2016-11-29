@@ -10,7 +10,7 @@ if [[ -f ${TMP_CONFIG} ]]; then
 fi
 
 if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${ELASTIC_HOST}:9200/${KIBANA_INDEX_NAME}") -eq 404 ]]; then
-  curl -XPUT "${ELASTIC_HOST}:9200/${KIBANA_INDEX_NAME}" -d'{"settings" :{"index" : {"number_of_shards" : 2, "number_of_replicas" : 2}}}'
+  curl -XPUT "${ELASTIC_HOST}:9200/${KIBANA_INDEX_NAME}" -d'{"settings" :{"index" : {"number_of_shards" : 1, "number_of_replicas" : 3}}}'
 fi
 
 # Run kibana
