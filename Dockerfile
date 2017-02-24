@@ -1,9 +1,9 @@
-FROM alpine:3.4
+FROM alpine:3.5
 
-ENV KIBANA_VERSION 4.6.1
+ENV KIBANA_VERSION 5.2.0
 
 RUN apk add --update bash curl nodejs py-pip && \
-    curl -fL https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz | tar xzf - -C /srv && \
+    curl -fL https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz | tar xzf - -C /srv && \
     mv /srv/kibana-${KIBANA_VERSION}-linux-x86_64 /srv/kibana && \
     rm -rf /srv/kibana/node && \
     mkdir -p /srv/kibana/node/bin/ && \
