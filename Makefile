@@ -1,5 +1,5 @@
 NAME = anchorfree/kibana
-VERSION = 5.2.0
+VERSION = 5.2.2
 
 .PHONY: all
 
