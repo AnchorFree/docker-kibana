@@ -12,7 +12,8 @@ RUN apk add --update bash curl nodejs py-pip && \
     ln -s $(which node) ${KIBANA_HOME_DIR}/node/bin/node && \
     rm -rf /var/cache/apk/*
 
-RUN ${KIBANA_PLUGIN} install x-pack
+RUN ${KIBANA_PLUGIN} install https://github.com/outbrain/ob-kb-funnel/releases/download/v5.2.2/ob-kb-funnel-5.2.2.zip \
+    && ${KIBANA_PLUGIN} install x-pack
 
 RUN pip install envtpl
 
