@@ -13,8 +13,8 @@ fi
 sleep 2m
 
 # Create kibana index
-if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${ELASTIC_HOST}:9213/${KIBANA_INDEX_NAME}") -eq 404 ]]; then
-  curl -XPUT "${ELASTIC_HOST}:9213/${KIBANA_INDEX_NAME}" -d'{"settings" :{"index" : {"number_of_shards" : 1, "number_of_replicas" : 3}}}'
+if [[ $(curl --write-out %{http_code} --silent --output /dev/null "127.0.0.1:9200/${KIBANA_INDEX_NAME}") -eq 404 ]]; then
+  curl -XPUT "127.0.0.1:9200/${KIBANA_INDEX_NAME}" -d'{"settings" :{"index" : {"number_of_shards" : 2, "number_of_replicas" : 3}}}'
 fi
 
 # Run kibana
