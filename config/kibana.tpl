@@ -1,5 +1,5 @@
 # Kibana is served by a back end server. This controls which port to use.
-server.port: {{ KIBANA_PORT }}
+server.port: {{ kibana_port }}
 
 # The host to bind the server to.
 server.host: "127.0.0.1"
@@ -12,7 +12,7 @@ server.host: "127.0.0.1"
 # server.maxPayloadBytes: 1048576
 
 # The Elasticsearch instance to use for all your queries.
-elasticsearch.url: 'http://127.0.0.1:9200'
+elasticsearch.url: 'http://{{ elasticsearch_host }}:{{ elasticsearch_port }}'
 
 # preserve_elasticsearch_host true will send the hostname specified in `elasticsearch`. If you set it to false,
 # then the host you use to connect to *this* Kibana instance will be sent.
@@ -20,7 +20,7 @@ elasticsearch.url: 'http://127.0.0.1:9200'
 
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations
 # and dashboards. It will create a new index if it doesn't already exist.
-kibana.index: "{{ KIBANA_INDEX_NAME }}"
+kibana.index: "{{ kibana_index_name }}"
 
 # The default application to load.
 # kibana.defaultAppId: "discover"
