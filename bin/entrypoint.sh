@@ -1,20 +1,20 @@
 #!/bin/bash
 
-declare -r tmp_config=/tmp/kibana.tpl
-declare -x kibana_index_name=".kibana-${kibana_host}"
+declare -r TMP_CONFIG=/tmp/kibana.tpl
+declare -x KIBANA_INDEX_NAME=".kibana-${KIBANA_HOST}"
 
 # Test if need to cast kibana template
-if [[ -f ${tmp_config} ]]; then
-  envtpl < /tmp/kibana.tpl > ${kibana_home_dir}/config/kibana.yml
+if [[ -f ${TMP_CONFIG} ]]; then
+  envtpl < /tmp/kibana.tpl > ${KIBANA_HOME_DIR}/config/kibana.yml
 fi
 
 # Wait until cluster up
 sleep 5m
 
 # Create kibana index
-if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${elasticsearch_host}:${elasticsearch_port}/${kibana_index_name}") -eq 404 ]]; then
-  curl -XPUT "${elasticsearch_host}:${elasticsearch_port}/${kibana_index_name}" -d'{"settings" :{"index" : {"number_of_shards" : 2, "number_of_replicas" : 3}}}'
+if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}/${KIBANA_INDEX_NAME}") -eq 404 ]]; then
+  curl -XPUT "${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}/${KIBANA_INDEX_NAME}" -d'{"settings" :{"index" : {"number_of_shards" : 2, "number_of_replicas" : 3}}}'
 fi
 
 # Run kibana
-${kibana_home_dir}/bin/kibana
+${KIBANA_HOME_DIR}/bin/kibana
