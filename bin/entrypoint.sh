@@ -25,4 +25,4 @@ if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${ELASTICSEAR
 fi
 
 # Run kibana
-${KIBANA_HOME_DIR}/bin/kibana
+exec ${KIBANA_HOME_DIR}/bin/kibana
