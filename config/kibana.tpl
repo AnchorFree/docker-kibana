@@ -2,7 +2,7 @@
 server.port: {{ KIBANA_PORT }}
 
 # The host to bind the server to.
-server.host: "127.0.0.1"
+server.host: "0.0.0.0"
 
 # If you are running kibana behind a proxy, and want to mount it at a path,
 # specify that path here. The basePath can't end in a slash.
@@ -12,7 +12,7 @@ server.host: "127.0.0.1"
 # server.maxPayloadBytes: 1048576
 
 # The Elasticsearch instance to use for all your queries.
-elasticsearch.url: 'http://127.0.0.1:9200'
+elasticsearch.url: 'http://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}'
 
 # preserve_elasticsearch_host true will send the hostname specified in `elasticsearch`. If you set it to false,
 # then the host you use to connect to *this* Kibana instance will be sent.
