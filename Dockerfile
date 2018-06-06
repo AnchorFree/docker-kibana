@@ -16,4 +16,26 @@ ADD bin/run.sh /usr/bin/run.sh
 RUN ${KIBANA_PLUGIN} install x-pack \
     && chmod +x /usr/bin/run.sh
 
+RUN apk add --no-cache make gcc g++ python linux-headers binutils-gold gnupg libstdc++ && \
+    mkdir -p /tests && \
+    curl -fL https://nodejs.org/dist/v10.3.0/node-v10.3.0.tar.gz | tar xzf - -C /tests && \
+    cd /tests/node-v10.3.0 && \
+    ./configure && \
+    make -j$(getconf _NPROCESSORS_ONLN) && \
+    mv /tests/node-v10.3.0/out/Release/node /usr/bin/node10 && \
+    rm -rf /tests/node-v10.3.0 && \
+    apk del make gcc g++ python linux-headers binutils-gold gnupg
+
+RUN echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+      chromium@edge \
+      nss@edge
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+RUN cd /tests && \
+    npm install puppeteer
+
+ADD tests/* /tests
+
 CMD ["/usr/bin/run.sh"]
