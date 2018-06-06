@@ -159,8 +159,8 @@ do
 done
 
 # Create kibana index
-if [[ $(curl --write-out %{http_code} --silent --output /dev/null "${ELASTICSEARCH_URL}/${KIBANA_INDEX}") -eq 404 ]]; then
-  curl -XPUT "${ELASTICSEARCH_URL}/${KIBANA_INDEX}" -d'{"settings" :{"index" : {"number_of_shards" : ${ELASTICSEARCH_SHARDS}, "number_of_replicas" : ${ELASTICSEARCH_REPLICAS}}}}'
+if [[ $(curl -H 'Content-Type: application/json' --write-out %{http_code} --silent --output /dev/null "${ELASTICSEARCH_URL}/${KIBANA_INDEX}") -eq 404 ]]; then
+  curl -XPUT -H 'Content-Type: application/json' "${ELASTICSEARCH_URL}/${KIBANA_INDEX}" -d'{"settings" :{"index" : {"number_of_shards" : ${ELASTICSEARCH_SHARDS}, "number_of_replicas" : ${ELASTICSEARCH_REPLICAS}}}}'
 fi
 
 # The virtual file /proc/self/cgroup should list the current cgroup
