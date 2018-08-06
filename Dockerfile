@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-ENV KIBANA_VERSION 6.2.4
+ENV KIBANA_VERSION 6.3.2
 ENV KIBANA_HOME_DIR /srv/kibana
 ENV KIBANA_PLUGIN ${KIBANA_HOME_DIR}/bin/kibana-plugin
 
@@ -13,8 +13,7 @@ RUN apk add --update bash curl nodejs && \
     rm -rf /var/cache/apk/*
 
 ADD bin/run.sh /usr/bin/run.sh
-RUN ${KIBANA_PLUGIN} install x-pack \
-    && chmod +x /usr/bin/run.sh
+RUN chmod +x /usr/bin/run.sh
 
 RUN apk add --no-cache make gcc g++ python linux-headers binutils-gold gnupg libstdc++ && \
     mkdir -p /tests && \
